@@ -1,0 +1,32 @@
+# Entorno virtual
+venv/
+
+# Archivos de caché de Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Archivos de caché de pytest
+.pytest_cache/
+
+# Configuración de VS Code
+.vscode/
+
+# Base de datos local y archivos temporales
+instance/
+alumnos.csv
+dev_sysacad.db
+
+# Archivos de prueba o generación masiva
+*.csv
+!README.md
+!requirements.txt
+!import_csv.py
+!create_tables.py
+!app/
+!tests/
+
+# Otros
+.DS_Store
+.env
