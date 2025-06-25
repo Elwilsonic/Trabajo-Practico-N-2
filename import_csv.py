@@ -21,23 +21,21 @@ def importar_alumnos_csv(ruta_archivo):
             alumnos = []
             total = 0
             for fila in reader:
-                alumno = Alumno(
-                    dni=fila['dni'],
-                    nombre=fila['nombre'],
-                    apellido=fila['apellido'],
-                    email=fila['email'],
-                    fecha_nacimiento=datetime.strptime(fila['fecha_nacimiento'], '%Y-%m-%d')
-                )
+                alumno = {
+                    'dni': fila['dni'],
+                    'nombre': fila['nombre'],
+                    'apellido': fila['apellido'],
+                    'email': fila['email'],
+                    'fecha_nacimiento': datetime.strptime(fila['fecha_nacimiento'], '%Y-%m-%d')
+                }
                 alumnos.append(alumno)
                 # Se insertan lotes
                 if len(alumnos) >= BATCH_SIZE:
-                    db.session.bulk_save_objects(alumnos)
+                    db.session.bulk_insert_mappings(Alumno, alumnos)
                     db.session.commit()
                     total += len(alumnos)
-                    print(f"Insertados {total} alumnos...")
-                    alumnos = []
             if alumnos:
-                db.session.bulk_save_objects(alumnos)
+                db.session.bulk_insert_mappings(Alumno, alumnos)
                 db.session.commit()
                 total += len(alumnos)
             print(f'Se importaron {total} alumnos')
